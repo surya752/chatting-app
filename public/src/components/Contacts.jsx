@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.svg";
 
 export default function Contacts({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
+  const navigate = useNavigate(); // Initialize navigation
 
   useEffect(() => {
     async function fetchData() {
@@ -24,6 +26,10 @@ export default function Contacts({ contacts, changeChat }) {
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     changeChat(contact);
+  };
+
+  const redirectToProfile = () => {
+    navigate("/profile"); // Redirect to profile page
   };
 
   // Helper function to get valid avatar URL
@@ -60,7 +66,12 @@ export default function Contacts({ contacts, changeChat }) {
               </div>
             ))}
           </div>
-          <div className="current-user">
+          {/* Make the current user clickable */}
+          <div
+            className="current-user"
+            onClick={redirectToProfile}
+            style={{ cursor: "pointer" }}
+          >
             <div className="avatar">
               <img src={getAvatarSrc(currentUserImage)} alt="avatar" />
             </div>

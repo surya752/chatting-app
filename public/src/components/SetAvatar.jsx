@@ -8,14 +8,12 @@ import loader from "../assets/loader.svg";
 import axios from "axios";
 
 export default function SetAvatar() {
-  const navigate = useNavigate();
   const [avatars, setAvatars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
-  const [avatarModel, setAvatarModel] = useState(
-    localStorage.getItem("selectedAvatarModel") || "bottts" // Load saved model
-  );
+  const [avatarModel, setAvatarModel] = useState("bottts"); // Default model
 
+  const navigate = useNavigate();
   const toastOptions = {
     position: "bottom-right",
     autoClose: 3000,
@@ -32,31 +30,29 @@ export default function SetAvatar() {
 
   useEffect(() => {
     const fetchAvatars = () => {
-      setIsLoading(true);
+      setIsLoading(true); // Show loader while fetching
       let avatarUrls = [];
       for (let i = 0; i < 6; i++) {
         const id = Math.round(Math.random() * 1000);
-        avatarUrls.push(
-          avatarModel === "robohash"
-            ? `https://robohash.org/${id}.png`
-            : avatarModel === "ui-avatar"
-            ? `https://ui-avatars.com/api/?name=User${id}&background=random`
-            : `https://api.dicebear.com/7.x/${avatarModel}/svg?seed=${id}`
-        );
+        if (avatarModel === "robohash") {
+          avatarUrls.push(`https://robohash.org/${id}.png`);
+        } else if (avatarModel === "ui-avatar") {
+          avatarUrls.push(
+            `https://ui-avatars.com/api/?name=User${id}&background=random`
+          );
+        } else {
+          avatarUrls.push(
+            `https://api.dicebear.com/7.x/${avatarModel}/svg?seed=${id}`
+          );
+        }
       }
       setAvatars(avatarUrls);
-      setSelectedAvatar(undefined);
+      setSelectedAvatar(undefined); // Reset selection when model changes
       setIsLoading(false);
     };
 
     fetchAvatars();
   }, [avatarModel]);
-
-  const handleModelChange = (e) => {
-    const selectedModel = e.target.value;
-    setAvatarModel(selectedModel);
-    localStorage.setItem("selectedAvatarModel", selectedModel); // Save model in localStorage
-  };
 
   const setProfilePicture = async () => {
     if (selectedAvatar === undefined) {
@@ -99,7 +95,10 @@ export default function SetAvatar() {
         <Container>
           <h1>Choose an avatar 🎭 for your profile picture 📷!</h1>
           <div className="title-container">
-            <select value={avatarModel} onChange={handleModelChange}>
+            <select
+              value={avatarModel}
+              onChange={(e) => setAvatarModel(e.target.value)}
+            >
               {[
                 "adventurer",
                 "adventurer-neutral",

@@ -72,7 +72,6 @@ export default function ChatContainer({ currentChat, socket }) {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // ✅ Fix: Properly format avatar image URL
   const getAvatarSrc = (avatar) => {
     if (!avatar) return "";
     return avatar.startsWith("data:image") ||
