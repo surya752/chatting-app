@@ -12,7 +12,6 @@ export default function Login() {
   const navigate = useNavigate();
   const [values, setValues] = useState({ username: "", password: "" });
 
-
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -24,8 +23,7 @@ export default function Login() {
     if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
       navigate("/");
     }
-  }, []);
-  
+  }, [navigate]);
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -80,16 +78,15 @@ export default function Login() {
             onChange={(e) => handleChange(e)}
             min="3"
           />
-         
-            <div className="password">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={(e) => handleChange(e)}
-          /> 
-  
-  </div>
+
+          <div className="password">
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
           <button type="submit">Log In</button>
           <span>
             Don't have an account ? <Link to="/register">Create Account</Link>
@@ -102,28 +99,28 @@ export default function Login() {
 }
 
 const FormContainer = styled.div`
-height: 100vh;
-width: 100vw;
-display: flex;
-flex-direction: column;
-justify-content: center;
-gap : 1rem;
-align-items: center;
-background: linear-gradient(110deg, #26b3e2 60%, #2f7cc3 60%);
-.brand {
-    display:flex;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  background: linear-gradient(110deg, #26b3e2 60%, #2f7cc3 60%);
+  .brand {
+    display: flex;
     align-items: center;
     gap: 1rem;
     justify-content: center;
     img {
-       height : 3rem; 
+      height: 3rem;
     }
     h1 {
-       color: white;
-       text-transform: uppercase; 
+      color: white;
+      text-transform: uppercase;
     }
-}
-form {
+  }
+  form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -131,42 +128,41 @@ form {
     border-radius: 1rem;
     padding: 3rem 5rem;
     input {
-        background-color: transparent;
-        padding: 0.80rem;
-        border: 0.1rem solid #26b3e2;
-        border-radius: 0.4rem;
-        color: white;
-        width: 100%;
-        font-size: 1rem;
-        &:focus{
-            border: 0.1rem solid #2f7cc3;
-            outline: none;
-        }
+      background-color: transparent;
+      padding: 0.8rem;
+      border: 0.1rem solid #26b3e2;
+      border-radius: 0.4rem;
+      color: white;
+      width: 100%;
+      font-size: 1rem;
+      &:focus {
+        border: 0.1rem solid #2f7cc3;
+        outline: none;
+      }
     }
     button {
-        background-color: #2f7cc3;
-        color: white;
-        padding: 1rem 2rem;
-        border: none;
-        font-weight: bold;
-        cursor: pointer;
-        border-radius: 0.4rem;
-        font-size: 1rem;
-        text-transform: uppercase;
-        transition: 0.5s ease-in-out;
-        &:hover {
-            background-color: #26b3e2;
-        }
+      background-color: #2f7cc3;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 0.4rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      transition: 0.5s ease-in-out;
+      &:hover {
+        background-color: #26b3e2;
+      }
     }
     span {
-        color: white;
-        text-transform: uppercase;
-        a{
-            color: #26b3e2;
-            text-decoration: none;
-            font-weight: bold;
-
-        }
+      color: white;
+      text-transform: uppercase;
+      a {
+        color: #26b3e2;
+        text-decoration: none;
+        font-weight: bold;
+      }
     }
-}
-`;   
+  }
+`;

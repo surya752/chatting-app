@@ -11,15 +11,18 @@ export default function ChatContainer({ currentChat, socket }) {
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
-  useEffect(async () => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-    const response = await axios.post(recieveMessageRoute, {
-      from: data._id,
-      to: currentChat._id,
-    });
-    setMessages(response.data);
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const data = await JSON.parse(
+        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+      );
+      const response = await axios.post(recieveMessageRoute, {
+        from: data._id,
+        to: currentChat?._id,
+      });
+      setMessages(response.data);
+    };
+    fetchMessages();
   }, [currentChat]);
 
   useEffect(() => {
@@ -59,7 +62,7 @@ export default function ChatContainer({ currentChat, socket }) {
         setArrivalMessage({ fromSelf: false, message: msg });
       });
     }
-  }, []);
+  }, [socket]);
 
   useEffect(() => {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
@@ -69,18 +72,25 @@ export default function ChatContainer({ currentChat, socket }) {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // ✅ Fix: Properly format avatar image URL
+  const getAvatarSrc = (avatar) => {
+    if (!avatar) return "";
+    return avatar.startsWith("data:image") ||
+      avatar.startsWith("https://") ||
+      avatar.startsWith("http://")
+      ? avatar
+      : `data:image/svg+xml;base64,${avatar}`;
+  };
+
   return (
     <Container>
       <div className="chat-header">
         <div className="user-details">
           <div className="avatar">
-            <img
-              src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-              alt=""
-            />
+            <img src={getAvatarSrc(currentChat?.avatarImage)} alt="avatar" />
           </div>
           <div className="username">
-            <h3>{currentChat.username}</h3>
+            <h3>{currentChat?.username || "Unknown User"}</h3>
           </div>
         </div>
         <Logout />
@@ -128,6 +138,7 @@ const Container = styled.div`
         img {
           height: 4rem;
           padding-top: 23px;
+          border-radius: 50%; /* Ensures round avatars */
         }
       }
       .username {

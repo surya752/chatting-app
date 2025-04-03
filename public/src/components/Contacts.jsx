@@ -6,54 +6,63 @@ export default function Contacts({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
-  useEffect(async () => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-    setCurrentUserName(data.username);
-    setCurrentUserImage(data.avatarImage);
+
+  useEffect(() => {
+    async function fetchData() {
+      const storedUser = localStorage.getItem(
+        process.env.REACT_APP_LOCALHOST_KEY
+      );
+      if (storedUser) {
+        const userData = JSON.parse(storedUser);
+        setCurrentUserName(userData.username);
+        setCurrentUserImage(userData.avatarImage); // Avatar is stored persistently
+      }
+    }
+    fetchData();
   }, []);
+
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     changeChat(contact);
   };
+
+  // Helper function to get valid avatar URL
+  const getAvatarSrc = (avatar) => {
+    if (!avatar) return ""; // Prevent broken images
+    return avatar.startsWith("data:image")
+      ? avatar // Use directly if Base64
+      : avatar; // Otherwise, assume it's a valid URL
+  };
+
   return (
     <>
-      {currentUserImage && currentUserImage && (
+      {currentUserImage && currentUserName && (
         <Container>
           <div className="brand">
             <img src={Logo} alt="logo" />
             <h3>CG MEET</h3>
           </div>
           <div className="contacts">
-            {contacts.map((contact, index) => {
-              return (
-                <div
-                  key={contact._id}
-                  className={`contact ${
-                    index === currentSelected ? "selected" : ""
-                  }`}
-                  onClick={() => changeCurrentChat(index, contact)}
-                >
-                  <div className="avatar">
-                    <img
-                      src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                      alt=""
-                    />
-                  </div>
-                  <div className="username">
-                    <h3>{contact.username}</h3>
-                  </div>
+            {contacts.map((contact, index) => (
+              <div
+                key={contact._id}
+                className={`contact ${
+                  index === currentSelected ? "selected" : ""
+                }`}
+                onClick={() => changeCurrentChat(index, contact)}
+              >
+                <div className="avatar">
+                  <img src={getAvatarSrc(contact.avatarImage)} alt="avatar" />
                 </div>
-              );
-            })}
+                <div className="username">
+                  <h3>{contact.username}</h3>
+                </div>
+              </div>
+            ))}
           </div>
           <div className="current-user">
             <div className="avatar">
-              <img
-                src={`data:image/svg+xml;base64,${currentUserImage}`}
-                alt="avatar"
-              />
+              <img src={getAvatarSrc(currentUserImage)} alt="avatar" />
             </div>
             <div className="username">
               <h2>{currentUserName}</h2>
@@ -64,11 +73,12 @@ export default function Contacts({ contacts, changeChat }) {
     </>
   );
 }
+
 const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color:#2f7cc3;
+  background-color: #2f7cc3;
   .brand {
     display: flex;
     align-items: center;
@@ -80,7 +90,6 @@ const Container = styled.div`
     h3 {
       color: white;
       text-transform: uppercase;
-      
     }
   }
   .contacts {
@@ -111,17 +120,17 @@ const Container = styled.div`
       .avatar {
         img {
           height: 2rem;
+          border-radius: 50%;
         }
       }
       .username {
         h3 {
           color: white;
-          
         }
       }
     }
     .selected {
-      background-color:#26b3e2;
+      background-color: #26b3e2;
     }
   }
 
@@ -131,18 +140,17 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     border-top-right-radius: 3rem;
-
     gap: 2rem;
     .avatar {
       img {
         height: 3rem;
         max-inline-size: 100%;
+        border-radius: 50%;
       }
     }
     .username {
       h2 {
-        color:  #2f7cc3;
-        
+        color: #2f7cc3;
       }
     }
     @media screen and (min-width: 720px) and (max-width: 1080px) {

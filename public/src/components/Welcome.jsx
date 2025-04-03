@@ -3,12 +3,18 @@ import styled from "styled-components";
 import Robot from "../assets/welcome.png";
 export default function Welcome() {
   const [userName, setUserName] = useState("");
-  useEffect(async () => {
-    setUserName(
-      await JSON.parse(
+  useEffect(() => {
+    async function fetchUserName() {
+      const userData = await JSON.parse(
         localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-      ).username
-    );
+      );
+      if (userData && userData.Containers && userData.Containers[0]) {
+        setUserName(userData.Containers[0].userName);
+      } else {
+        setUserName("Guest");
+      }
+    }
+    fetchUserName();
   }, []);
   return (
     <Container>
@@ -32,6 +38,6 @@ const Container = styled.div`
     width: 21rem;
   }
   span {
-    color:#26b3e2;
+    color: #26b3e2;
   }
 `;
