@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/mainlogo.svg"; // Import your logo here
 
 export default function Contacts({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
@@ -89,7 +89,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: #2f7cc3;
+  background-color: #3533cd;
   .brand {
     display: flex;
     align-items: center;
@@ -118,7 +118,7 @@ const Container = styled.div`
       }
     }
     .contact {
-      background-color: #ffffff34;
+      background-color: rgba(21, 5, 5, 0.38);
       min-height: 3rem;
       cursor: pointer;
       width: 90%;
@@ -141,7 +141,7 @@ const Container = styled.div`
       }
     }
     .selected {
-      background-color: #26b3e2;
+      background-color: #08080b;
     }
   }
 
@@ -161,7 +161,7 @@ const Container = styled.div`
     }
     .username {
       h2 {
-        color: #2f7cc3;
+        color: #3533cd;
       }
     }
     @media screen and (min-width: 720px) and (max-width: 1080px) {

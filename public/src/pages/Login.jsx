@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/mainlogo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginRoute } from "../utils/APIRoutes";
@@ -69,7 +69,7 @@ export default function Login() {
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
             <img src={Logo} alt="logo" />
-            <h1>CG MEET</h1>
+            <h1>MEET</h1>
           </div>
           <input
             type="text"
@@ -106,11 +106,11 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background: linear-gradient(110deg, #26b3e2 60%, #2f7cc3 60%);
+  background: linear-gradient(110deg, rgb(0, 0, 0) 39.71%, #3533cd 90.36%);
   .brand {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
     justify-content: center;
     img {
       height: 3rem;
@@ -130,18 +130,18 @@ const FormContainer = styled.div`
     input {
       background-color: transparent;
       padding: 0.8rem;
-      border: 0.1rem solid #26b3e2;
+      border: 0.1rem solid #3533cd;
       border-radius: 0.4rem;
       color: white;
       width: 100%;
       font-size: 1rem;
       &:focus {
-        border: 0.1rem solid #2f7cc3;
+        border: 0.1rem solid #3533cd;
         outline: none;
       }
     }
     button {
-      background-color: #2f7cc3;
+      background-color: #3533cd;
       color: white;
       padding: 1rem 2rem;
       border: none;
@@ -152,14 +152,14 @@ const FormContainer = styled.div`
       text-transform: uppercase;
       transition: 0.5s ease-in-out;
       &:hover {
-        background-color: #26b3e2;
+        background-color: #3533cd;
       }
     }
     span {
       color: white;
       text-transform: uppercase;
       a {
-        color: #26b3e2;
+        color: #3533cd;
         text-decoration: none;
         font-weight: bold;
       }

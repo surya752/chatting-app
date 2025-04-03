@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Robot from "../assets/welcome.png";
+import Robot from "../assets/mainlogo.svg";
 export default function Welcome() {
   const [userName, setUserName] = useState("");
   useEffect(() => {
@@ -38,6 +38,6 @@ const Container = styled.div`
     width: 21rem;
   }
   span {
-    color: #26b3e2;
+    color: #3533cd;
   }
 `;

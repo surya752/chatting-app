@@ -22,20 +22,22 @@ export default function Profile() {
 
   return (
     <Container>
-      <div className="profile-container">
-        <div className="header">
-          <button className="back-btn" onClick={() => navigate("/")}>
-            ⬅ Back
-          </button>
-          <Logout />
+      <form>
+        <div className="profile-container">
+          <div className="header">
+            <button className="back-btn" onClick={() => navigate("/")}>
+              ⬅ Back
+            </button>
+            <Logout />
+          </div>
+          <img src={user.avatar} alt="Avatar" className="avatar" />
+          <input type="text" value={user.username} readOnly />
+          <input type="email" value={user.email} readOnly />
+          <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Confirm Password" />
+          <button>Update</button>
         </div>
-        <img src={user.avatar} alt="Avatar" className="avatar" />
-        <input type="text" value={user.username} readOnly />
-        <input type="email" value={user.email} readOnly />
-        <input type="password" placeholder="Password" />
-        <input type="password" placeholder="Confirm Password" />
-        <button>Update</button>
-      </div>
+      </form>
     </Container>
   );
 }
@@ -45,17 +47,17 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #2f7cc3;
+  background: linear-gradient(110deg, rgb(0, 0, 0) 39.71%, #3533cd 90.36%);
 
   .profile-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: white;
-    padding: 2rem;
+    background-color: transparent;
+    padding: 3rem;
     border-radius: 1rem;
     gap: 1rem;
-    width: 90%;
+    width: 100%;
     max-width: 400px;
     position: relative;
 
@@ -72,7 +74,7 @@ const Container = styled.div`
     .back-btn {
       background: none;
       border: none;
-      color: #2f7cc3;
+      color: #3533cd;
       font-size: 1rem;
       cursor: pointer;
     }
@@ -85,16 +87,58 @@ const Container = styled.div`
     }
 
     input {
-      width: 80%;
-      padding: 0.5rem;
+      width: 100%;
+      padding: 0.8rem;
     }
 
     button {
       padding: 0.5rem;
-      background: #26b3e2;
+      background: #3533cd;
       color: white;
       border: none;
       cursor: pointer;
+    }
+  }
+  form {
+    display: flex;
+    background-color: rgba(3, 1, -2, 0.5);
+    border-radius: 1rem;
+    input {
+      background-color: transparent;
+      padding: 0.8rem;
+      border: 0.1rem solid #3533cd;
+      border-radius: 0.4rem;
+      color: white;
+      width: 100%;
+      font-size: 1rem;
+      &:focus {
+        border: 0.1rem solid #3533cd;
+        outline: none;
+      }
+    }
+    button {
+      background-color: #3533cd;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 0.4rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      transition: 0.5s ease-in-out;
+      &:hover {
+        background-color: #3533cd;
+      }
+    }
+    span {
+      color: white;
+      text-transform: uppercase;
+      a {
+        color: #3533cd;
+        text-decoration: none;
+        font-weight: bold;
+      }
     }
   }
 `;

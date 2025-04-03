@@ -160,7 +160,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 3rem;
-  background: linear-gradient(110deg, #26b3e2 60%, #2f7cc3 60%);
+  background: linear-gradient(110deg, rgb(0, 0, 0) 39.71%, #3533cd 90.36%);
   height: 100vh;
   width: 100vw;
 
@@ -172,7 +172,7 @@ const Container = styled.div`
     color: white;
   }
   select {
-    background-color: #2f7cc3;
+    background-color: #3533cd;
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -210,12 +210,12 @@ const Container = styled.div`
     }
 
     .selected {
-      border: 0.4rem solid #2f7cc3;
+      border: 0.4rem solid #3533cd;
     }
   }
 
   .submit-btn {
-    background-color: #2f7cc3;
+    background-color: #3533cd;
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -227,7 +227,7 @@ const Container = styled.div`
     transition: 0.5s ease-in-out;
 
     &:hover {
-      background-color: #26b3e2;
+      background-color: #3533cd;
     }
   }
 `;

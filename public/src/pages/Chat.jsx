@@ -106,7 +106,7 @@ const Container = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background: linear-gradient(110deg, #26b3e2 60%, #2f7cc3 60%);
+  background: linear-gradient(110deg, rgb(0, 0, 0) 39.71%, #3533cd 90.36%);
   .container {
     height: 85vh;
     width: 85vw;

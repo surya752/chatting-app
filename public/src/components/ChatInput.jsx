@@ -41,7 +41,7 @@ export default function ChatInput({ handleSendMsg }) {
           value={msg}
         />
         <button type="submit">
-          <FaStudiovinari/>
+          <FaStudiovinari />
         </button>
       </form>
     </Container>
@@ -69,20 +69,20 @@ const Container = styled.div`
       position: relative;
       svg {
         font-size: 1.5rem;
-        color: #ffff00c8;
+        color:rgba(255, 255, 0, 0.78);
         cursor: pointer;
       }
       .emoji-picker-react {
         position: absolute;
         top: -350px;
         background-color: #01487eda;
-        box-shadow: 0 5px 10px  #2f7cc3;
-        border-color:  #2f7cc3;
+        box-shadow: 0 5px 10px  #3533cd;
+        border-color:  #3533cd;
         .emoji-scroll-wrapper::-webkit-scrollbar {
           background-color: #01487eda;
           width: 5px;
           &-thumb {
-            background-color:  #2f7cc3;
+            background-color: #3533cd;
           }
         }
         .emoji-categories {
@@ -92,7 +92,7 @@ const Container = styled.div`
         }
         .emoji-search {
           background-color: transparent;
-          border-color: #2f7cc3;
+          border-color: #3533cd;
         }
         .emoji-group:before {
           background-color: #01487eda;
@@ -101,7 +101,7 @@ const Container = styled.div`
     }
   }
   .input-container {
-    width: 100%;
+    width: 96%;
     border-radius: 2rem;
     display: flex;
     align-items: center;
@@ -117,7 +117,7 @@ const Container = styled.div`
       font-size: 1.2rem;
 
       &::selection {
-        background-color:  #2f7cc3;
+        background-color: #3533cd;
       }
       &:focus {
         outline: none;
@@ -129,7 +129,7 @@ const Container = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color:  #2f7cc3;
+      background-color: #3533cd;
       border: none;
       @media screen and (min-width: 420px) and (max-width: 1080px) {
         padding: 0.3rem 1rem;
