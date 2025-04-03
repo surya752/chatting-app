@@ -133,7 +133,7 @@ const Container = styled.div`
     z-index: 10;
   }
   .eFyvsu {
-    padding: 0px 1rem;
+    padding: 0px 2rem;
     gap: 0.1rem;
   }
 `;
