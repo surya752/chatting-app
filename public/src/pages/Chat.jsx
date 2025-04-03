@@ -7,6 +7,7 @@ import { allUsersRoute, host } from "../utils/APIRoutes";
 import ChatContainer from "../components/ChatContainer";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Chat() {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ export default function Chat() {
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 720);
+
   useEffect(() => {
     async function fetchUser() {
       if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
@@ -28,6 +31,7 @@ export default function Chat() {
     }
     fetchUser();
   }, [navigate]);
+
   useEffect(() => {
     if (currentUser) {
       socket.current = io(host);
@@ -43,13 +47,7 @@ export default function Chat() {
             const { data } = await axios.get(
               `${allUsersRoute}/${currentUser._id}`
             );
-            const updatedContacts = data.map((contact) => {
-              if (!contact.avatarImage.startsWith("http")) {
-                contact.avatarImage = `https://robohash.org/${contact._id}.png`;
-              }
-              return contact;
-            });
-            setContacts(updatedContacts);
+            setContacts(data);
           } catch (error) {
             console.error("Error fetching contacts:", error);
           }
@@ -60,22 +58,43 @@ export default function Chat() {
     }
     fetchContacts();
   }, [currentUser, navigate]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 720);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
+
   return (
-    <>
-      <Container>
-        <div className="container">
+    <Container>
+      <div
+        className={`container ${
+          isMobileView && currentChat ? "chat-active" : ""
+        }`}
+      >
+        {isMobileView && currentChat ? (
+          <button
+            className="back-button"
+            onClick={() => setCurrentChat(undefined)}
+          >
+            <AiOutlineArrowLeft size={24} />
+          </button>
+        ) : (
           <Contacts contacts={contacts} changeChat={handleChatChange} />
-          {currentChat === undefined ? (
-            <Welcome />
-          ) : (
-            <ChatContainer currentChat={currentChat} socket={socket} />
-          )}
-        </div>
-      </Container>
-    </>
+        )}
+        {currentChat === undefined ? (
+          !isMobileView && <Welcome />
+        ) : (
+          <ChatContainer currentChat={currentChat} socket={socket} />
+        )}
+      </div>
+    </Container>
   );
 }
 
@@ -94,8 +113,27 @@ const Container = styled.div`
     background-color: #00000076;
     display: grid;
     grid-template-columns: 25% 75%;
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
-      grid-template-columns: 35% 65%;
+    transition: all 0.3s ease-in-out;
+
+    @media screen and (max-width: 720px) {
+      grid-template-columns: 100%;
     }
+  }
+  .chat-active {
+    grid-template-columns: 100% !important;
+  }
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+  }
+  .eFyvsu {
+    padding: 0px 1rem;
+    gap: 0.1rem;
   }
 `;
