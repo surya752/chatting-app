@@ -46,7 +46,7 @@ export default function Contacts({ contacts, changeChat }) {
         <Container>
           <div className="brand">
             <img src={Logo} alt="logo" />
-            <h3>CG MEET</h3>
+            <h3>MEET</h3>
           </div>
           <div className="contacts">
             {contacts.map((contact, index) => (
@@ -93,7 +93,7 @@ const Container = styled.div`
   .brand {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.3rem;
     justify-content: center;
     img {
       height: 2rem;

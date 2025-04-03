@@ -5,7 +5,7 @@ import Logout from "./Logout";
 
 export default function Profile() {
   const [user, setUser] = useState({ username: "", avatar: "", email: "" });
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = JSON.parse(
@@ -17,8 +17,10 @@ export default function Profile() {
         avatar: storedUser.avatarImage,
         email: storedUser.email,
       });
+    } else {
+      navigate("/login"); // Redirect if no user is found
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <Container>

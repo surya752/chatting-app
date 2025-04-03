@@ -4,18 +4,32 @@ import { BiPowerOff } from "react-icons/bi";
 import styled from "styled-components";
 import axios from "axios";
 import { logoutRoute } from "../utils/APIRoutes";
+
 export default function Logout() {
   const navigate = useNavigate();
+
   const handleClick = async () => {
-    const id = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    )._id;
-    const data = await axios.get(`${logoutRoute}/${id}`);
-    if (data.status === 200) {
-      localStorage.clear();
+    const storedUser = localStorage.getItem(
+      process.env.REACT_APP_LOCALHOST_KEY
+    );
+    if (!storedUser) {
       navigate("/login");
+      return;
+    }
+
+    const id = JSON.parse(storedUser)._id;
+    try {
+      const { status } = await axios.get(`${logoutRoute}/${id}`);
+      console.log("Logout response:", status);
+      if (status === 200) {
+        localStorage.clear();
+        navigate("/login", { replace: true });
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
     }
   };
+
   return (
     <Button onClick={handleClick}>
       <BiPowerOff />
