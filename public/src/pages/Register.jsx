@@ -91,7 +91,7 @@ export default function Register() {
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
             <img src={Logo} alt="logo" />
-            <h1>CG MEET</h1>
+            <h1>MEET</h1>
           </div>
           <input
             type="text"
